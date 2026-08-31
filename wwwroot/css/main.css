@@ -45,7 +45,7 @@ h1 {
     font-size: clamp(2.5rem, 8vw, 4.5rem);
 }
 
-.hero > p:last-child {
+.hero>p:last-child {
     color: #667085;
 }
 
@@ -146,6 +146,7 @@ button {
     text-align: center;
     color: #98a2b3;
 }
+
 .statistics {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -167,6 +168,26 @@ button {
 .statistics p {
     margin: 6px 0 0;
     color: #667085;
+}
+
+/* Länk till statistiksidan */
+.statistics-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+
+    background: white;
+    color: #4f46e5;
+
+    text-decoration: none;
+    font-weight: bold;
+
+    border-radius: 10px;
+}
+
+/* När musen ligger över knappen */
+.statistics-link:hover {
+    opacity: 0.85;
 }
 
 @media (max-width: 600px) {

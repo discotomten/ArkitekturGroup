@@ -1,0 +1,83 @@
+/* Tar bort standardmarginaler och gör storleksberäkningen enklare */
+* {
+    box-sizing: border-box;
+}
+
+
+/* Hela sidan */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef5ff;
+    color: #333;
+}
+
+
+/* Huvudinnehållet */
+.statistics-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 30px;
+}
+
+
+/* Rubrik */
+.statistics-page h1 {
+    margin: 0;
+    font-size: 32px;
+    text-align: center;
+}
+
+
+/* Texten under rubriken */
+.subtitle {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    color: #666;
+}
+
+
+/* Behållaren för statistik-korten */
+.statistics-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+
+/* Ett statistik-kort */
+.stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px 20px;
+    text-align: center;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Den stora siffran */
+.stat-number {
+    font-size: 36px;
+    font-weight: bold;
+    color: #4f46e5;
+    margin-bottom: 10px;
+}
+
+
+/* Texten under siffran */
+.stat-label {
+    font-size: 14px;
+    color: #555;
+}
+
+
+/* Anpassning för mindre skärmar */
+@media (max-width: 700px) {
+
+    .statistics-container {
+        grid-template-columns: 1fr;
+    }
+
+}
