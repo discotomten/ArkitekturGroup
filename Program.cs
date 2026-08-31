@@ -11,5 +11,5 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.CreateTodo();
-
+app.RemoveTodo();
 app.Run();
