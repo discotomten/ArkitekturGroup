@@ -1,10 +1,8 @@
 using Features.Todos;
-<<<<<<< Updated upstream
 using Features.Todos.GetTodo;
-=======
-using Infrastructure.Logging;
->>>>>>> Stashed changes
 using Infrastructure.Storage;
+using Infrastructure.Logging;
+using Features.Todos.ListTodos;
 
 var builder = WebApplication.CreateBuilder(args);
 
