@@ -4,7 +4,6 @@ using Infrastructure.Storage;
 using Infrastructure.Logging;
 using Features.Todos.ListTodos;
 using Features.Todos.UpdateTodo;
-using Infrastructure.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 
