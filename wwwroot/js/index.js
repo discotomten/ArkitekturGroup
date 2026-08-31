@@ -1,5 +1,6 @@
 // Global state
 const todos = [];
+let deletedTodos = [];
 let deletedCount = 0;
 let selectedFilter = "all";
 
@@ -62,15 +63,26 @@ async function loadTodos() {
 
     // Tömmer den lokala listan
     todos.length = 0;
+    deletedTodos.length = 0;
 
     // Lägger in todos från backend
-    data.forEach((todo) => {
+    data.filter(todo => todo.isDeleted === false)
+    .forEach((todo) => {
         todos.push({
             id: todo.id,
             title: todo.description,
             isCompleted: todo.isFinished
         });
     });
+    data.filter(todo => todo.isDeleted === true)
+    .forEach((todo) => {
+        deletedTodos.push({
+            id: todo.id,
+            title: todo.description,
+            isCompleted: todo.isFinished 
+        });
+    });
+    
 
     // Visar todos på sidan
     render();
