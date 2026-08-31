@@ -1,5 +1,7 @@
 using Features.Todos;
 using Features.Todos.GetTodo;
+using Infrastructure.Storage;
+using Infrastructure.Logging;
 using Features.Todos.ListTodos;
 using Features.Todos.UpdateTodo;
 using Infrastructure.Storage;
@@ -7,6 +9,7 @@ using Infrastructure.Storage;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<ITodoStore, TodoStore>();
+builder.Services.AddSingleton<IActivityLogger, FileActivityLogger>();
 
 var app = builder.Build();
 
@@ -18,4 +21,5 @@ app.GetTodo();
 app.ListTodos();
 app.UpdateTodo();
 
+app.RemoveTodo();
 app.Run();
