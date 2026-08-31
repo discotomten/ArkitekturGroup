@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<ITodoStore, TodoStore>();
 builder.Services.AddSingleton<IActivityLogger, FileActivityLogger>();
+builder.Services.AddScoped<Features.Todos.UpdateTodo.Handler>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
