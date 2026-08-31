@@ -3,6 +3,7 @@ using Features.Todos.GetTodo;
 using Infrastructure.Storage;
 using Infrastructure.Logging;
 using Features.Todos.ListTodos;
+using Features.Statistics;
 using Features.Todos.UpdateTodo;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,7 @@ app.UseStaticFiles();
 app.CreateTodo();
 app.GetTodo();
 app.ListTodos();
+app.MapGetStatistics();
 app.UpdateTodo();
 
 app.RemoveTodo();

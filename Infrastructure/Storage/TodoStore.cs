@@ -10,7 +10,10 @@ public class TodoStore : ITodoStore
 {
     private readonly List<TodoItem> _todos = [];
     private int _nextId = 1;
-
+    private int _createdCount = 0;
+    private int _completedCount = 0;
+    private int _deletedCount = 0;
+    public TodoStats GetStatistics() => new(_createdCount, _completedCount, _deletedCount);
     public TodoItem Add(string description)
     {
         var todoItem = new TodoItem
@@ -26,6 +29,8 @@ public class TodoStore : ITodoStore
         _todos.Add(todoItem);
 
         _nextId ++;
+
+        _createdCount++;
 
         return todoItem;
     }
@@ -62,6 +67,7 @@ public class TodoStore : ITodoStore
             _todos.Add(todoToAdd);
 
             _nextId++;
+            _completedCount++;
 
             return true;
         }
@@ -101,6 +107,7 @@ public class TodoStore : ITodoStore
 
         todo.ChangedAt = DateTime.UtcNow;
 
+        _deletedCount++;
         //Vad underlättar för loggning och hämtning - att vi uppdaterar ChangedAt eller bara hanterar existerande todoItem?
 
         return true;
