@@ -3,7 +3,7 @@ using Features.Todos.GetTodo;
 using Infrastructure.Storage;
 using Infrastructure.Logging;
 using Features.Todos.ListTodos;
-
+using Features.Statistics;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<ITodoStore, TodoStore>();
@@ -17,5 +17,6 @@ app.UseStaticFiles();
 app.CreateTodo();
 app.GetTodo();
 app.ListTodos();
+app.MapGetStatistics();
 
 app.Run();
