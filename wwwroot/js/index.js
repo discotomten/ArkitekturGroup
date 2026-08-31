@@ -98,15 +98,34 @@ function render() {
         item.className = `todo-item ${todo.isCompleted ? "completed" : ""}`;
 
         item.innerHTML = `
-            <input type="checkbox" ${todo.isCompleted ? "checked" : ""}>
-            <label>${todo.title}</label>
-            <button class="delete-button">Ta bort</button>
-        `;
+    <input type="checkbox" ${todo.isCompleted ? "checked" : ""}>
+    <label>${todo.title}</label>
+    <button class="delete-button">Ta bort</button>
+`;
 
-        item.querySelector("input").addEventListener("change", () => {
+        // Uppdaterar todo när checkboxen ändras
+        item.querySelector("input").addEventListener("change", async () => {
+
+            // Ändrar status från klar till inte klar
+            // eller från inte klar till klar
             todo.isCompleted = !todo.isCompleted;
-            render();
+
+            // Skickar ändringen till C# backend
+            await fetch(`/todos/${todo.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    description: todo.title,
+                    isFinished: todo.isCompleted
+                })
+            });
+
+            // Hämtar todos från backend igen
+            loadTodos();
         });
+
         // Tar bort todo via C# backend
         item.querySelector(".delete-button").addEventListener("click", async () => {
 
