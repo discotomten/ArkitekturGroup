@@ -1,5 +1,6 @@
 using Features.Todos;
 using Features.Todos.GetTodo;
+using Features.Todos.ListTodos;
 using Infrastructure.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,5 +14,6 @@ app.UseStaticFiles();
 
 app.CreateTodo();
 app.GetTodo();
+app.ListTodos();
 
 app.Run();
