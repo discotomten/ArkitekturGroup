@@ -7,31 +7,27 @@ public static class Endpoint
 {
     public static void UpdateTodo(this IEndpointRouteBuilder app)
     {
-        app.MapPut("/todos/{id}", (
+        app.MapPut("/todos/{id:int}", (
             int id,
-            UpdateTodoRequest request,
-            ITodoStore store
+            UpdateTodoRequest? request,
+            Handler handler
         ) =>
         {
-            if (request is null)
-            {
-                return Results.BadRequest("Uppdaterad information måste anges.");
-            }
 
-            if (id <= 0)
-            {
-                return Results.NotFound();
-            }
+            var result = handler.Execute(id, request);
 
-            var dto = new TodoItemDto
+            return result switch
             {
-                Description = request.Description,
-                IsFinished = request.IsFinished
+                UpdateTodoResult.Success =>
+                    Results.NoContent(),
+                UpdateTodoResult.InvalidId =>
+                    Results.BadRequest("Id måste vara större än 0."),
+                UpdateTodoResult.EmptyRequest =>
+                    Results.BadRequest("Uppdaterad information måste anges."),
+                UpdateTodoResult.NotFound =>
+                    Results.NotFound(),
+                _ => Results.BadRequest()
             };
-
-            var result = store.Update(dto, id);
-
-            return Results.Ok(result);
         });
     }
 }
