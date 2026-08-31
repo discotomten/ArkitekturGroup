@@ -1,4 +1,3 @@
-/*
 // Global state
 const todos = [];
 let deletedCount = 0;
@@ -11,22 +10,32 @@ const todoList = document.getElementById("todo-list");
 const emptyMessage = document.getElementById("empty-message");
 const searchInput = document.getElementById("search-input");
 
-//Lägger till ny todo
-form.addEventListener("submit", (event) => {
+// Lägger till en ny todo via C# backend
+form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    // Hämtar texten från inputfältet
     const title = todoInput.value.trim();
 
+    // Om inputfältet är tomt gör vi ingenting
     if (!title) return;
 
-    todos.push({
-        id: crypto.randomUUID(),
-        title,
-        isCompleted: false
+    // Skickar den nya todo:n till C# backend
+    await fetch("/todos", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            description: title
+        })
     });
 
+    // Tömmer inputfältet
     todoInput.value = "";
-    render();
+
+    // Hämtar den uppdaterade listan från backend
+    loadTodos();
 });
 
 // Söker efter todo
@@ -45,11 +54,32 @@ document.querySelectorAll(".filter").forEach((button) => {
     });
 });
 
+// Hämtar alla todos från C# backend
+async function loadTodos() {
+    const response = await fetch("/todos");
+
+    const data = await response.json();
+
+    // Tömmer den lokala listan
+    todos.length = 0;
+
+    // Lägger in todos från backend
+    data.forEach((todo) => {
+        todos.push({
+            id: todo.id,
+            title: todo.description,
+            isCompleted: todo.isFinished
+        });
+    });
+
+    // Visar todos på sidan
+    render();
+}
 // Renderar alla todos
 function render() {
     const searchText = searchInput.value.toLowerCase();
 
-// Filtrerar todos baserat på söktext och vald filter
+    // Filtrerar todos baserat på söktext och vald filter
     const visibleTodos = todos.filter((todo) => {
         const matchesSearch = todo.title.toLowerCase().includes(searchText);
         const matchesFilter =
@@ -77,12 +107,16 @@ function render() {
             todo.isCompleted = !todo.isCompleted;
             render();
         });
+        // Tar bort todo via C# backend
+        item.querySelector(".delete-button").addEventListener("click", async () => {
 
-        item.querySelector(".delete-button").addEventListener("click", () => {
-            const index = todos.findIndex((item) => item.id === todo.id);
-            todos.splice(index, 1);
-            deletedCount++;
-            render();
+            // Skickar DELETE-request till backend med todo:ns id
+            await fetch(`/todos/${todo.id}`, {
+                method: "DELETE"
+            });
+
+            // Hämtar listan från backend igen
+            loadTodos();
         });
 
         todoList.appendChild(item);
@@ -98,4 +132,5 @@ function render() {
     document.getElementById("deleted-count").textContent = deletedCount;
 }
 
-render();*/
+// Startar programmet genom att hämta todos från backend
+loadTodos();
