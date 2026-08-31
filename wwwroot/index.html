@@ -1,13 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="main.css">
-    <script src="index.js"></script>
+    <title>TodoFlow</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/index.js" defer></script>
 </head>
 <body>
-    <h1 id="header">The best Todo</h1>
+    <main class="app">
+        <header class="hero">
+            <p class="eyebrow">MIN ATT-GÖRA-LISTA</p>
+            <h1>TodoFlow</h1>
+            <p>Få små saker gjorda, en uppgift i taget.</p>
+        </header>
+
+        <section class="todo-card">
+            <form id="todo-form" class="add-todo-form">
+                <input id="todo-input" type="text" placeholder="Vad behöver du göra?" required>
+                <button type="submit">+ Lägg till</button>
+            </form>
+            <div class="toolbar">
+                <div class="filters">
+                    <button class="filter active" data-filter="all">Alla</button>
+                    <button class="filter" data-filter="active">Aktiva</button>
+                    <button class="filter" data-filter="completed">Klara</button>
+                </div>
+
+                <input id="search-input" type="search" placeholder="Sök uppgift">
+            </div>
+
+            <ul id="todo-list" class="todo-list"></ul>
+
+            <p id="empty-message" class="empty-message">
+                Inga uppgifter ännu. Lägg till din första!
+            </p>
+        </section>
+
+        <section class="statistics">
+            <article>
+                <span id="created-count">0</span>
+                <p>Skapade</p>
+            </article>
+            <article>
+                <span id="completed-count">0</span>
+                <p>Klara</p>
+            </article>
+            <article>
+                <span id="deleted-count">0</span>
+                <p>Borttagna</p>
+            </article>
+        </section>
+    </main>
 </body>
 </html>
