@@ -11,5 +11,6 @@ public interface ITodoStore
 
     public TodoItem Add(string description);
 
-
+    public bool Update(TodoItemDto todoItem, int id);
+    public bool Remove(int id);
 }
