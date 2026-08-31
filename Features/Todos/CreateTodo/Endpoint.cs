@@ -1,8 +1,7 @@
+using Features.Todos.CreateTodo;
 using Infrastructure.Storage;
 
 namespace Features.Todos;
-
-public record CreateTodoRequest(string Description);
 
 public static class Endpoint
 {
