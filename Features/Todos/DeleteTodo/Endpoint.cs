@@ -5,12 +5,12 @@ public static class EndPoint
 {
     public static void RemoveTodo(this IEndpointRouteBuilder app)
     {
-        app.MapDelete("/todos/{id}", (DeleteTodoRequest request, ITodoStore store) =>
+        app.MapDelete("/todos/{id}", (int id, ITodoStore store) =>
         {
-            var todo = store.GetById(request.id);
+            var todo = store.GetById(id);
             if (todo is null) return Results.NotFound();
 
-            store.Remove(request.id);
+            store.Remove(id);
             return Results.NoContent();
         });
     }
