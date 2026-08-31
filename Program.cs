@@ -18,5 +18,6 @@ app.UseStaticFiles();
 
 app.CreateTodo();
 app.GetTodo();
+app.ListTodos();
 
 app.Run();
