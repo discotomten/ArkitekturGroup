@@ -8,6 +8,7 @@ let selectedFilter = "all";
 const form = document.getElementById("todo-form");
 const todoInput = document.getElementById("todo-input");
 const todoList = document.getElementById("todo-list");
+const deletedTodoList = document.getElementById("deleted-todo-list");
 const emptyMessage = document.getElementById("empty-message");
 const searchInput = document.getElementById("search-input");
 
@@ -91,16 +92,25 @@ async function loadTodos() {
 function render() {
     const searchText = searchInput.value.toLowerCase();
 
-    // Filtrerar todos baserat på söktext och vald filter
-    const visibleTodos = todos.filter((todo) => {
-        const matchesSearch = todo.title.toLowerCase().includes(searchText);
-        const matchesFilter =
+    let visibleTodos;
+    if(selectedFilter === "deleted"){
+        visibleTodos = deletedTodos.filter((todos) => {
+            return todos.title.toLowerCase().includes(searchText);
+        });
+         
+    }else{
+
+        // Filtrerar todos baserat på söktext och vald filter
+        visibleTodos = todos.filter((todo) => {
+            const matchesSearch = todo.title.toLowerCase().includes(searchText);
+            const matchesFilter =
             selectedFilter === "all" ||
             (selectedFilter === "active" && !todo.isCompleted) ||
             (selectedFilter === "completed" && todo.isCompleted);
-
-        return matchesSearch && matchesFilter;
-    });
+            
+            return matchesSearch && matchesFilter;
+        });
+    }
 
     todoList.innerHTML = "";
 
@@ -160,7 +170,7 @@ function render() {
     document.getElementById("created-count").textContent = todos.length + deletedCount;
     document.getElementById("completed-count").textContent =
         todos.filter((todo) => todo.isCompleted).length;
-    document.getElementById("deleted-count").textContent = deletedCount;
+    document.getElementById("deleted-count").textContent = deletedTodos.length;
 }
 
 // Startar programmet genom att hämta todos från backend
